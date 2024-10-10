@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Underwater Team Bingo!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="style/style.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- import Google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" >Underwater Team Bingo!</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" target="_blank" href="https://github.com/devan4264/animated-robot-india">Code Repository</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fdevan4264.github.io%2Fanimated-robot-india%2F" target="_blank">Nu Validator</a>
+            </li>
+            <li class="navitem"><button id="btnLoadData" class="btn btn-secondary" onclick="populateForm()">Load Example Form</button></li>
+        </ul>
+    </nav>
+
+<!-- interest form title -->
+<div class="row">
+    <div id="titleBar" class="offset-md-3 col-md-8 mx-auto text-center">
+        <h1>Please fill out the general interest form below...</h1>
+    </div>
+</div>
+<br>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <!-- Form begins -->
+            <form id="myForm">
+                <!-- Name -->
+                <div class="row">
+                    <div class="col mb-3 mt-3">
+                        <label for="firstname">First Name:</label>
+                        <input type="text" id="firstname" name="firstname" class="form-control" placeholder="Enter your first name...">
+                    </div>
+                    <div class="col mb-3 mt-3">
+                        <label for="lastname">Last Name:</label>
+                        <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Enter your last name...">
+                    </div>
+                </div>
+
+                <!-- Email and Password -->
+                <div class="row">
+                    <div class="col mb-3 mt-3">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter email address">
+                    </div>
+                    <div class="col mb-3 mt-3">
+                        <label for="password">Create a Password:</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter password">
+                        <input type="checkbox" id="showPasswordCheckbox" onchange="togglePasswordVisibility()">
+                        <label for="showPasswordCheckbox">Show Password</label>
+                    </div>
+                </div>
+
+                <!-- Phone Number and Birthday -->
+                <div class="row">
+                    <div class="col mb-3 mt-3">
+                        <label for="Phonenum">Phone Number:</label>
+                        <input type="tel" id="Phonenum" name="Phonenum" class="form-control" placeholder="(###) ###-####" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                    </div>
+                    <div class="col mb-3 mt-3">
+                        <label for="birthday">Birthday:</label>
+                        <input type="date" id="birthday" name="birthday" class="form-control">
+                    </div>
+                </div>
+                <button type="button" onclick="displayValues()">Verify</button>
+                <div id="submittedValues"></div>
+            </form>
+            <!-- Form ends -->
+        </div>
+    </div>
+</div>
+
+    <!-- Local JS Section to keep up with variables easier-->
+    <!-- load data object to auto polulate form-->
+    <script>
+        function populateForm() {
+            fetch('data.json') //JSON file named 'data.json'
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('firstname').value = data.firstname;
+                document.getElementById('lastname').value = data.lastname;
+                document.getElementById('email').value = data.email;
+                document.getElementById('password').value = data.password;
+                document.getElementById('Phonenum').value = data.phone;
+                document.getElementById('birthday').value = data.birthday;
+                
+            })
+            .catch(error => {
+                console.error('Error fetching JSON:', error);
+            });
+        }
+
+        // toggle password visibility
+function togglePasswordVisibility() {
+    var passwordInput = document.getElementById('password');
+    var checkbox = document.getElementById('showPasswordCheckbox');
+
+    if (checkbox.checked) {
+        passwordInput.type = 'text';
+    } else {
+        passwordInput.type = 'password';
+    }
+}
+
+    </script>
+    <!--  local scripts end  -->
+
+    <!-- name inputs -->
+<div class="row"></div>
+    <div class="col-md-6 offset-md-3 card mt-3">
+         
+    <!-- comments -->
+    <div class="form-group">
+        <label for="addinfo">Comments:</label>
+        <textarea class="form-control" rows="5" id="addinfo"></textarea>
+    </div>
+    <br>
+
+    <!-- Question 1 -->
+    <h4>Next, a few questions regarding underwater bingo</h4>     
+    <p><strong>Q#1 Can you swim!?</strong></p>
+    <div class="row">
+        <div class="col-25">
+    <input type="radio" id="yes" name="q1" value="Yes">
+    <label for="yes">Yes</label><br>
+    <input type="radio" id="no" name="q1" value="No">
+    <label for="no">No</label><br>
+    <input type="radio" id="kinda" name="q1" value="Kinda">
+    <label for="kinda">Kinda...</label><br>
+    <br>
+
+    <!-- Question 2 -->
+    <p><strong>Q#2 Which time of day is best for you?</strong></p>
+    <div class="row">
+        <div class="col-25">
+            <label for="timeofday" class="form-label">Select time of day</label>
+            <select id="timeofday" name="timeofday" onchange="showTimeslots()">
+                <option value="" disabled selected>Select time of day</option>
+                <option value="Morning">Morning</option>
+                <option value="Mid-day">Mid-day</option>
+                <option value="Afternoon">Afternoon</option>
+                <option value="Night">Night</option>
+            </select>
+            <hr>
+            <label for="timeslot" class="form-label">Time Slot</label>
+            <select id="timeslot" class="form-select" name="timeslot" disabled>
+                <option>&#x1F446; Select the best time of day for you first</option>
+            </select>
+        </div>
+    </div>
+    <br>
+
+    <!-- dependent timeslot script start-->
+    <script>
+        function showTimeslots() {
+            var timeofdaySelect = document.getElementById('timeofday');
+            var timeslotSelect = document.getElementById('timeslot');
+
+            // Enable the timeslot select
+            timeslotSelect.disabled = false;
+
+            // Clear options
+            timeslotSelect.innerHTML = '';
+
+            // give timeslots options based on the selected time of day
+            var selectedTimeOfDay = timeofdaySelect.value;
+            if (selectedTimeOfDay === 'Morning') {
+                timeslotSelect.add(new Option('8:00 AM - 10:00 AM'));
+                timeslotSelect.add(new Option('10:00 AM - 12:00 PM'));
+            } else if (selectedTimeOfDay === 'Mid-day') {
+                timeslotSelect.add(new Option('12:00 PM - 2:00 PM'));
+                timeslotSelect.add(new Option('2:00 PM - 4:00 PM'));
+            } else if (selectedTimeOfDay === 'Afternoon') {
+                timeslotSelect.add(new Option('4:00 PM - 6:00 PM'));
+                timeslotSelect.add(new Option('6:00 PM - 8:00 PM'));
+            } else if (selectedTimeOfDay === 'Night') {
+                timeslotSelect.add(new Option('8:00 PM - 10:00 PM'));
+                timeslotSelect.add(new Option('10:00 PM - 12:00 AM'));
+            }
+        }
+
+        //verify function
+        function displayValues() {
+            // Get values from input fields
+            var firstName = document.getElementById('firstname').value;
+            var lastName = document.getElementById('lastname').value;
+            var email = document.getElementById('email').value;
+
+            // Construct message with the values
+            var message = "First Name: " + firstName + "<br>Last Name: " + lastName + "<br>Email: " + email;
+
+            // Display the message on the webpage
+            document.getElementById('submittedValues').innerHTML = message;
+        }
+    </script>
+
+    <!-- scripts end-->
+
+    <!-- Question 3 -->
+    <p><strong>Q#3 Choose your prefered swimsuit color.</strong></p> 
+    <input type="color" id="favColor" name="favColor"><br> 
+    <br>
+
+    <!-- Question 4 -->
+    <p><strong>Q#4 Which days are best for you?</strong></p>
+    <label>
+        <input type="checkbox" name="available" value="Monday">Monday
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="available" value="Tuesday">Tuesday
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="available" value="Wednesday">Wednesday
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="available" value="Thursday">Thursday
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="available" value="Friday">Friday
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="available" value="Saturday">Saturday
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="available" value="Sunday">Sunday
+    </label>
+    <br>
+    <br>
+
+    <!-- submit and clear buttons -->
+    <div class="button">
+        <input id="submitForm" type="submit" value="Submit" class="btn btn-primary" onclick="this.disabled = true">
+    </div>
+
+    </div>
+</div>
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script/script.js"></script>
+<script src="script/ajax.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
